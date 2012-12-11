@@ -1,4 +1,6 @@
-project (vidanueva)
+cmake_minimum_required(VERSION 2.8)
+
+project (witty-plus)
 
 add_definitions(-std=c++11 -Wall -Wextra)
 
@@ -10,7 +12,9 @@ add_subdirectory(model)
 
 add_executable(wt-basic main.cpp)
 target_link_libraries(wt-basic
-    widgets
-    models
     ${Boost_LIBRARIES}
+    ${Wt_LIBRARIES}
+    app
+    #widgets
+    #models
 )

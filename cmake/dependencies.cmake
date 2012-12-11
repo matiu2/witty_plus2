@@ -3,6 +3,7 @@ find_package(Boost REQUIRED COMPONENTS system thread signals unit_test_framework
 include_directories(${Boost_INCLUDE_DIRS})
 
 # Wt
+# TODO: Make postgres and other sql modules an option
 option(DEBUG "Make a debug build" ON)
 if(DEBUG)
     set(CMAKE_BUILD_TYPE Debug)
@@ -10,11 +11,13 @@ if(DEBUG)
     find_library(wt wtd wt)
     find_library(wthttp wthttpd wthttp)
     find_library(wtdbo wtdbod wtdbo)
-    find_library(wtdbo wtdbopostgresd wtdbopostgres)
+    find_library(wtdbopostgres wtdbopostgresd wtdbopostgres)
 else()
     set(CMAKE_BUILD_TYPE RelWithDebInfo)
     find_library(wt wt)
     find_library(wthttp wthttp)
     find_library(wtdbo wtdbo)
-    find_library(wtdbo wtdbopostgres)
+    find_library(wtdbopostgres wtdbopostgres)
 endif()
+
+set(Wt_LIBRARIES ${wt} ${wthttp} ${wtdbo} ${wtdbopostgres})

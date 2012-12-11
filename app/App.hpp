@@ -2,6 +2,7 @@
 
 #include <Wt/WApplication>
 
+namespace witty_plus {
 namespace app {
 
     class App : public Wt::WApplication {
@@ -10,4 +11,5 @@ namespace app {
         App(const Wt::WEnvironment& env);
     };
 
+}
 }
