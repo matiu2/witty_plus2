@@ -1,0 +1,5 @@
+ * urlmapper
+ * take care of config file
+ * basic styles setup
+ * allow for drop in replacement style templates
+ * tests ?

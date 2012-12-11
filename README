@@ -1,0 +1,30 @@
+Welcome to Witty Plus
+
+This is a library built on top of the brilliant Wt library.
+
+It reduces Wt's flexibility by taking away some options.
+But it make it easier to get an app off the ground.
+
+Wt+ provides the main app framework and you provide a bunch of pages mapped to urls, some CSS and if you like some templates.
+
+It provides a complete set of auth (pasword, facebook, and google).
+
+Example usage:
+
+#include <WtPlus/urlMapper>
+#include <WtPlus/main>
+
+int main(int argc, char** argv) {
+    WtPlus::URLMapper urlMapper {
+        {"/"}, {[](Wt::WWidget base) { return new MyMainWindow(base); }},
+
+    };
+    WtPlus::main(argc, argv, urlMapper);
+}
+
+=================
+Useful Interfaces
+=================
+
+IAuth
+IStyle ?
