@@ -22,7 +22,7 @@ public:
         const std::string &wtApplicationPath=std::string(),
         const std::string &wtConfigurationFile=std::string()
     );
-    const Wt::Auth::AuthService& auth() { return _auth; }
+    const Wt::Auth::AuthService& authService() { return _authService; }
     const Wt::Auth::PasswordService& passwordAuth() { return _passwordService; }
     const std::vector< const Wt::Auth::OAuthService *>& oAuthServices() { return _oAuthServices; }
 };

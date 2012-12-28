@@ -4,17 +4,20 @@ project (witty-plus)
 
 add_definitions(-std=c++11 -Wall -Wextra)
 
+include(cmake/settings.cmake)
 include(cmake/dependencies.cmake)
 
 add_subdirectory(app)
 add_subdirectory(widgets)
-add_subdirectory(model)
+add_subdirectory(models)
 
 add_executable(wt-basic main.cpp)
 target_link_libraries(wt-basic
-    ${Boost_LIBRARIES}
-    ${Wt_LIBRARIES}
     app
     #widgets
-    #models
+    models
+    ${wtdbosqlite}
+    ${WT_LIBRARIES}
+    ${DB_LIBRARIES}
+    ${Boost_LIBRARIES}
 )

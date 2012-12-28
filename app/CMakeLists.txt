@@ -1,3 +1,3 @@
 project (app)
 
-add_library(app App.cpp Server.cpp)
+add_library(app App.cpp Server.cpp UserSession.cpp)

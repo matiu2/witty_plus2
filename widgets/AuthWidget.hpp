@@ -4,8 +4,7 @@
 namespace witty_plus {
 namespace widgets {
 
-class AuthWidget
-{
+class AuthWidget : {
 public:
     AuthWidget();
 };

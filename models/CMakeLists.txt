@@ -1,3 +1,3 @@
 project (model)
 
-#add_library(models)
+add_library(models User.cpp)

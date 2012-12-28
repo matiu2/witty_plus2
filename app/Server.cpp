@@ -1,4 +1,6 @@
 #include "Server.hpp"
+#include <Wt/Auth/GoogleService>
+#include <Wt/Auth/FacebookService>
 
 namespace witty_plus {
 namespace app {
@@ -22,9 +24,10 @@ void Server::configureAuth()
     _passwordService.setStrengthValidator(new Wt::Auth::PasswordStrengthValidator());
 
     if (Wt::Auth::GoogleService::configured())
-        _oAuthServices.push_back(new Wt::Auth::GoogleService);
+        _oAuthServices.push_back(new Wt::Auth::GoogleService(_authService));
     if (Wt::Auth::FacebookService::configured())
-        _oAuthServices.push_back(new Wt::Auth::FacebookService);
+        _oAuthServices.push_back(new Wt::Auth::FacebookService(_authService));
 }
 
+}
 }
