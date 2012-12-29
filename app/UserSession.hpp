@@ -5,9 +5,10 @@
 
 #include <Wt/Dbo/Session>
 #include <Wt/Dbo/ptr>
-#include <Wt/Dbo/backend/Sqlite3>
 #include <Wt/Auth/Login>
 
+
+#include "db.hpp"
 #include "../models/User.hpp"
 
 namespace witty_plus {
@@ -17,7 +18,7 @@ class UserSession : public Wt::Dbo::Session {
 public:
     typedef Wt::Auth::Dbo::UserDatabase<models::AuthInfo> UserDatabase;
 private:
-    Wt::Dbo::backend::Sqlite3 _connection;
+    std::unique_ptr<Wt::Dbo::SqlConnection> _connection;
     models::UserDatabase *_users;
     Wt::Auth::Login _login;
 public:
