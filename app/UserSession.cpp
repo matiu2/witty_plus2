@@ -7,9 +7,9 @@ namespace witty_plus {
 namespace app {
 
 UserSession::UserSession(const std::string& dbConnectionString)
-    : _connection(dbConnectionString)
+    : _connection(makeConnection(dbConnectionString))
 {
-    setConnection(_connection);
+    setConnection(*_connection.get());
 
     mapClass<models::User>("user");
     mapClass<models::AuthInfo>("auth_info");
