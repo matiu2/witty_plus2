@@ -34,3 +34,15 @@ endif()
 string(COMPARE NOTEQUAL "${DB_LIB_NAME}" "" HAVE_DB_LIB)
 
 set(DB_INIT_STRING "myapp.db" CACHE STRING "The string to pass to your DB library. See the library documentation")
+
+# Other settings
+
+set(LOG_FILE_NAME "myapp.log" CACHE STRING "The filename of the log file that the app should log to, in the default config file")
+
+# Settings for configuration and script files
+IF( "${CMAKE_BUILD_TYPE}" STREQUAL Release )
+  SET(WT_DEBUG false)
+  ADD_DEFINITIONS(-DBOOST_DISABLE_ASSERTS)
+ELSE()
+  SET(WT_DEBUG true)
+ENDIF()

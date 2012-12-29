@@ -10,6 +10,7 @@ include(cmake/dependencies.cmake)
 add_subdirectory(app)
 add_subdirectory(widgets)
 add_subdirectory(models)
+add_subdirectory(config)
 
 add_executable(wt-basic main.cpp)
 target_link_libraries(wt-basic
