@@ -1,0 +1,9 @@
+# Require any additional compass plugins here.
+# Set this to the root of your project when deployed:
+http_path = "/"
+sass_dir = "src"
+images_dir = "images"
+javascripts_dir = "javascripts"
+css_dir = "${CSS_OUTPUT_DIR}"
+output_style = ${COMPASS_OUTPUT_STYLE}
+relative_assets = true
