@@ -1,12 +1,14 @@
 #include "User.hpp"
 
-
 namespace witty_plus {
 namespace models {
 
-User::User()
-{
+
+}
 }
 
+namespace Wt {
+namespace Dbo {
+DBO_INSTANTIATE_TEMPLATES(witty_plus::models::User);
 }
 }

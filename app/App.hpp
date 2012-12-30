@@ -8,7 +8,7 @@ namespace app {
 
     class App : public Wt::WApplication {
     private:
-        UserSession _session;
+        UserSession _userSession;
     public:
         App(const Wt::WEnvironment& env);
     };

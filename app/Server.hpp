@@ -11,8 +11,11 @@
 namespace witty_plus {
 namespace app {
 
+void initServerInstance();
+
 class Server : public Wt::WServer {
 private:
+    static Server* _instance;
     Wt::Auth::AuthService _authService;
     Wt::Auth::PasswordService _passwordService;
     std::vector< const Wt::Auth::OAuthService *> _oAuthServices;
@@ -23,8 +26,9 @@ public:
         const std::string &wtConfigurationFile=std::string()
     );
     const Wt::Auth::AuthService& authService() { return _authService; }
-    const Wt::Auth::PasswordService& passwordAuth() { return _passwordService; }
+    const Wt::Auth::PasswordService& passwordService() { return _passwordService; }
     const std::vector< const Wt::Auth::OAuthService *>& oAuthServices() { return _oAuthServices; }
+    static Server* instance() { return _instance; }
 };
 
 }

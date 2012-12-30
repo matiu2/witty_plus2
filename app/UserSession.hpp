@@ -24,7 +24,7 @@ private:
 public:
     UserSession(const std::string& dbConnectionString);
 
-    Wt::Auth::AbstractUserDatabase& users();
+    Wt::Auth::AbstractUserDatabase& users() { return *_users; }
     Wt::Auth::Login& login() { return _login; }
 };
 

@@ -5,9 +5,14 @@
 namespace witty_plus {
 namespace app {
 
+Server* Server::_instance = nullptr;
+
 Server::Server(const std::string &wtApplicationPath, const std::string &wtConfigurationFile)
     : Wt::WServer(wtApplicationPath, wtConfigurationFile), _passwordService(_authService)
 {
+    if (Server::_instance != nullptr)
+        throw std::logic_error("There should only be one witty_plus::app::Server instance per process");
+    Server::_instance = this;
     configureAuth();
 }
 

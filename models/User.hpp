@@ -14,12 +14,18 @@ typedef Wt::Auth::Dbo::UserDatabase<AuthInfo> UserDatabase;
 
 class User : public Wt::Dbo::Dbo<User> {
 public:
-    User();
     template<class Action>
     void persist(Action&) {
     }
 };
 
+
+}
+}
+
+namespace Wt {
+namespace Dbo {
+DBO_EXTERN_TEMPLATES(witty_plus::models::User);
 }
 }
 
