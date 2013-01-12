@@ -8,14 +8,12 @@
 #include <boost/iostreams/device/mapped_file.hpp>
 #include <regex>
 
-const std::string Configurator::install_dir = TEMPLATE_DIR; // This will be expanded from -DTEMPLATE_DIR=... in compiler
-
 /** Reads in a file template and outputs it in the build dir.
     It searches for variables surrounded by two triangle brackets, eg. <<some_var>>
     And replaces those with the variable values
 **/
-Configurator::Configurator(const Options& aOptions) : options(aOptions) {
-    const std::string inFileName(install_dir + "/CMakeLists.txt");
+void configureCMakeTemplateFiles(const Options& opt) {
+    const std::string inFileName(opt.templateDir() + "/CMakeLists.txt");
     boost::iostreams::mapped_file_source inf;
     try {
         inf.open(inFileName);
@@ -29,32 +27,51 @@ Configurator::Configurator(const Options& aOptions) : options(aOptions) {
     }
     const char* in(inf.data());
     const char* inEnd(in+inf.size());
-    std::ofstream outf("CMakeLists.txt");
+    std::ofstream outf(opt.baseName() + "/CMakeLists.txt");
     std::ostream_iterator<char> out(outf);
 
-    std::cmatch found;
-    std::regex rx("<<(.*)(>>)");
+    // Easier find function, throws HitEnd if we hit the end of the stream
+    struct HitEnd{};
+    auto find = [&inEnd](const char* start, char delim) {
+        for (;;) {
+            auto result = std::find(start, inEnd, delim);
+            if (result >= inEnd-1)
+                throw HitEnd();
+            // If the second deliminator is not there, it's a false alarm
+            if (result[1] != delim)
+                continue;
+            return result;
+        }
+    };
 
-    while (std::regex_search(in, inEnd, found, rx)) {
-        // Copy from in to the start of the match
-        const char* last = in + found.length();
-        std::copy(in, last, out);
-        in = last;
-        // Read the property name from the template file into lower case
-        std::string propertyName = found[0].str();
-        std::transform(propertyName.begin(), propertyName.end(), propertyName.begin(), ::tolower);
-        // Write out the value
-        if (propertyName ==  "project_name")
-            outf << options.baseName;
-        else if (propertyName == "db_init_string")
-            outf << options.dbInitString();
-        else if (propertyName == "executable_name")
-            outf << options.exeName;
-        else {
-            std::stringstream msg;
-            msg << "Found an unrecognized property name: '" << propertyName
-                << "' in file '" << inFileName << "'";
-            throw std::runtime_error(msg.str());
+    for (;;) {
+        // Looking for <<SOMETHING>>
+        try {
+            // Find the delimeters "<<" and ">>"
+            auto delimStart = find(in, '<');
+            auto delimEnd = find(delimStart+2, '>');
+            // Copy the file up to the start of the delimeter
+            outf.write(in, delimStart-in);
+            // Get the name
+            std::string propertyName;
+            propertyName.reserve(delimEnd-delimStart-2);
+            std::transform(delimStart+2, delimEnd, std::back_inserter(propertyName), ::tolower);
+            // Write out the value
+            if (propertyName ==  "project_name")
+                outf << opt.baseName();
+            else if (propertyName == "db_init_string")
+                outf << opt.dbInitString();
+            else if (propertyName == "executable_name")
+                outf << opt.exeName();
+            else {
+                std::stringstream msg;
+                msg << "Found an unrecognized property name: '" << propertyName
+                    << "' in file '" << inFileName << "'";
+                throw std::runtime_error(msg.str());
+            }
+            in = delimEnd+2;
+        } catch (HitEnd) {
+            break;
         }
     }
     // Copy the last bit of file
