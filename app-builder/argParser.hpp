@@ -20,6 +20,8 @@ private:
     std::string _dbPort;
     std::string _dbUser;
     std::string _dbPass;
+    static std::string _defaultHost;
+    static std::string _defaultPort;
 public:
     static const std::string template_dir;
 
@@ -51,11 +53,10 @@ public:
     std::string dbInitString() const;
     const std::string& templateDir() const { return Options::template_dir; }
     const std::string& baseName() const { return _baseName; }
-    const std::string& exeName() const { return _exeName; }
-    const std::string& dbName() const { return _dbName; }
-    const std::string& dbHost() const { return _dbHost; }
-    const std::string& dbPort() const { return _dbPort; }
-    const std::string& dbUser() const { return _dbUser; }
-    const std::string& dbPass() const { return _dbPass; }
-
+    const std::string& exeName() const { return !_exeName.empty() ? _exeName : _baseName; }
+    const std::string& dbName() const { return !_dbName.empty() ? _dbName : _baseName; }
+    const std::string& dbHost() const { return !_dbHost.empty() ? _dbHost : _defaultHost; }
+    const std::string& dbPort() const { return !_dbPort.empty() ? _dbPort : _defaultPort; }
+    const std::string& dbUser() const { return !_dbUser.empty() ? _dbUser : _baseName; }
+    const std::string& dbPass() const { return !_dbPass.empty() ? _dbPass : _dbPass; }
 };
