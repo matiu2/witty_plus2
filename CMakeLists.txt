@@ -21,6 +21,14 @@ target_link_libraries(wittyPlus
     app models
 )
 
+install(
+    TARGETS
+        wittyPlus
+    LIBRARY
+    DESTINATION
+        "${CMAKE_INSTALL_PREFIX}/lib"
+)
+
 install(DIRECTORY app-template
         DESTINATION "${SHARED_INSTALL_DIRECTORY}"
         FILE_PERMISSIONS OWNER_READ OWNER_WRITE GROUP_READ WORLD_READ

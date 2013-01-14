@@ -9,7 +9,7 @@
 
 
 #include "db.hpp"
-#include "../models/User.hpp"
+#include <wittyPlus/models/User.hpp>
 
 namespace witty_plus {
 namespace app {
