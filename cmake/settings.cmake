@@ -1,8 +1,8 @@
 # Which DB system are we going to use ?
 
-set(useSqlite true CACHE BOOL "Use Sqlite for the DB, you can only choose one DB type. Sqlite/MySQL/Postgres")
-set(usePostgres false CACHE BOOL "Use Postgres for the DB, you can only choose one DB type. Sqlite/MySQL/Postgres")
-set(useMysql false CACHE BOOL "Use Mysql for the DB, you can only choose one DB type. Sqlite/MySQL/Postgres")
+set(useSqlite ON CACHE BOOL "Use Sqlite for the DB, you can only choose one DB type. Sqlite/MySQL/Postgres")
+set(usePostgres OFF CACHE BOOL "Use Postgres for the DB, you can only choose one DB type. Sqlite/MySQL/Postgres")
+set(useMysql OFF CACHE BOOL "Use Mysql for the DB, you can only choose one DB type. Sqlite/MySQL/Postgres")
 
 math(EXPR number_of_dbs 0)
 
@@ -35,9 +35,17 @@ string(COMPARE NOTEQUAL "${DB_LIB_NAME}" "" HAVE_DB_LIB)
 
 set(DB_INIT_STRING "myapp.db" CACHE STRING "The string to pass to your DB library. See the library documentation")
 
-# Other settings
+# Default app settings
 
 set(LOG_FILE_NAME "myapp.log" CACHE STRING "The filename of the log file that the app should log to, in the default config file")
+set(SHARED_INSTALL_DIRECTORY "${CMAKE_INSTALL_PREFIX}/share/wittyPlus" CACHE STRING "Where to install any shared resources for the library")
+set(APP_TEMPLATE_INSTALL_DIR "${SHARED_INSTALL_DIRECTORY}/app-template")
+
+set(BINARY_INSTALL_DIRECTORY "${CMAKE_INSTALL_PREFIX}/bin" CACHE STRING "Where to install binaries")
+
+# Default build params
+set(CMAKE_BUILD_TYPE Debug CACHE STRING "Choose the type of build, options are: None(CMAKE_CXX_FLAGS or CMAKE_C_FLAGS used) Debug Release RelWithDebInfo MinSizeRel" FORCE)
+set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Debug" "Release" "MinSizeRel" "RelWithDebInfo")
 
 # Settings for configuration and script files
 IF( "${CMAKE_BUILD_TYPE}" STREQUAL Release )
@@ -46,3 +54,4 @@ IF( "${CMAKE_BUILD_TYPE}" STREQUAL Release )
 ELSE()
   SET(WT_DEBUG true)
 ENDIF()
+

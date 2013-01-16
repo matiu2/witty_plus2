@@ -1,0 +1,119 @@
+/* Used for iphone and other mobile clients with small displays */
+
+$min-width: 420px;
+$max-width: 420px;
+$top: 5px;
+
+$header-height: 80px;
+$header-padding: 10px;
+
+$controls-height: 40px;
+$controls-padding: 5px;
+$controls-font-size: $header-height - ($header-height / 10);
+
+$content-top: $top + $header-height + $header-padding;
+
+$side-bar-width: 140px;
+$side-bar-margin: 20px;
+$side-bar-padding: 10px;
+$side-bar-room: $side-bar-width + $side-bar-margin;
+
+$footer-height: 50px;
+
+p { font-size: 40px; }
+
+.Wt-domRoot {
+    min-width: 760px;
+    max-width: 1280px;
+    margin: 0 auto;
+    position: relative;
+}
+
+@import "colors";
+@import "shared-mobile-desktop";
+
+#controls-box {
+    width: 100%;
+    clear: both;
+}
+
+#navigation-box {
+    width: 100%;
+    clear: both;
+    min-height: 160px;
+}
+
+$h1-font-size: 60px;
+
+@import "fonts";
+
+#controls-box a {
+    font-size: $controls-font-size;
+}
+
+/*******************************/
+/* Set up the mixins for forms */
+/*******************************/
+
+/* Override some of the forms stuff, just for desktop */
+
+$form-width: 640px;
+$field-left-margin: 10px;
+$field-height: 80px;
+
+.form {
+    width: 100%;
+}
+
+.field-row {
+    width: 100%;
+    height: $field-height * 2;
+    margin-top: 5px;
+    padding: 5px 0px 5px 0px;
+    span {
+      display: block;
+    }
+}
+
+@mixin button-row {
+    $button-width: 80px;
+    width: 100%;
+    margin-top: $field-height / 2;
+    button {
+        width: 308px;
+        min-height: $controls-font-size + 20px;
+        font-size: $controls-font-size;
+        margin-left: 10px;
+    }
+    button:first-child {
+        margin-left: 0px;
+    }
+}
+
+.button-bar {
+    @include button-row;
+}
+
+.button-row {
+    @include button-row;
+}
+
+@mixin default-field-layout {
+    width: 100%;
+    padding: 3px;
+    display: block;
+    height: $field-height;
+    line-height: $field-height;
+    font-size: $controls-font-size;
+}
+
+@mixin form-label-layout {
+    width: 100%;
+    text-align: justify;
+    display: block;
+    height: $field-height;
+    line-height: $field-height;
+    font-size: $controls-font-size;
+}
+
+@import "forms"
