@@ -1,6 +1,7 @@
 project (model)
 
-add_library(models User.cpp)
+add_definitions(-fPIC)
+add_library(models STATIC User.cpp)
 
 install(
     FILES 

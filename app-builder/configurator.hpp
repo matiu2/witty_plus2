@@ -5,4 +5,7 @@
 #include "argParser.hpp"
 #include <string>
 
-void configureCMakeTemplateFiles(const Options& aOptions);
+void configureCMakeTemplateFiles(
+    const Options& opt,
+    const std::string& inFileName,
+    const std::string& outFileName);

@@ -22,6 +22,7 @@ private:
     std::string _dbPass;
     static std::string _defaultHost;
     static std::string _defaultPort;
+    static std::string _dbWtLibName;
 public:
     static const std::string template_dir;
 
@@ -58,5 +59,6 @@ public:
     const std::string& dbHost() const { return !_dbHost.empty() ? _dbHost : _defaultHost; }
     const std::string& dbPort() const { return !_dbPort.empty() ? _dbPort : _defaultPort; }
     const std::string& dbUser() const { return !_dbUser.empty() ? _dbUser : _baseName; }
-    const std::string& dbPass() const { return !_dbPass.empty() ? _dbPass : _dbPass; }
+    const std::string& dbPass() const { return !_dbPass.empty() ? _dbPass : _baseName; }
+    const std::string& dbWtLibName() const { return _dbWtLibName; }
 };

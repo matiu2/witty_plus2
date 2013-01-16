@@ -49,7 +49,12 @@ int main(int argc, const char** argv) {
         }
         std::cout << "Customizing cmake file.." << std::endl;
         // Write the defaule cmake files and wt-config file
-        configureCMakeTemplateFiles(opt);
+        configureCMakeTemplateFiles(opt,
+                                    opt.templateDir() + "/CMakeLists.txt",
+                                    opt.baseName() + "/CMakeLists.txt");
+        configureCMakeTemplateFiles(opt,
+                                    opt.templateDir() + "/cmake/settings.cmake",
+                                    opt.baseName() + "/cmake/settings.cmake");
         std::cout << "Done." << std::endl;
     } catch (std::runtime_error e) {
         std::cout << e.what() << std::endl;

@@ -5,6 +5,7 @@
 const std::string Options::template_dir = TEMPLATE_DIR; // This will be expanded from -DTEMPLATE_DIR=... check cmake vars...
 std::string Options::_defaultHost = "localhost";
 std::string Options::_defaultPort = "5432"; // Postgres default
+std::string Options::_dbWtLibName = DB_WT_LIB_NAME; // Set by compiler
 
 ////////////////////////////////////////////////////////////////////////////////
 #ifdef DB_SQLITE

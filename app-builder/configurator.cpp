@@ -12,8 +12,11 @@
     It searches for variables surrounded by two triangle brackets, eg. <<some_var>>
     And replaces those with the variable values
 **/
-void configureCMakeTemplateFiles(const Options& opt) {
-    const std::string inFileName(opt.templateDir() + "/CMakeLists.txt");
+void configureCMakeTemplateFiles(
+    const Options& opt,
+    const std::string& inFileName,
+    const std::string& outFileName)
+{
     boost::iostreams::mapped_file_source inf;
     try {
         inf.open(inFileName);
@@ -27,12 +30,12 @@ void configureCMakeTemplateFiles(const Options& opt) {
     }
     const char* in(inf.data());
     const char* inEnd(in+inf.size());
-    std::ofstream outf(opt.baseName() + "/CMakeLists.txt");
+    std::ofstream outf(outFileName);
     std::ostream_iterator<char> out(outf);
 
     // Easier find function, throws HitEnd if we hit the end of the stream
     struct HitEnd{};
-    auto find = [&inEnd](const char* start, char delim) {
+    auto findTwo = [&inEnd](const char* start, char delim) {
         for (;;) {
             auto result = std::find(start, inEnd, delim);
             if (result >= inEnd-1)
@@ -48,8 +51,8 @@ void configureCMakeTemplateFiles(const Options& opt) {
         // Looking for <<SOMETHING>>
         try {
             // Find the delimeters "<<" and ">>"
-            auto delimStart = find(in, '<');
-            auto delimEnd = find(delimStart+2, '>');
+            auto delimStart = findTwo(in, '<');
+            auto delimEnd = findTwo(delimStart+2, '>');
             // Copy the file up to the start of the delimeter
             outf.write(in, delimStart-in);
             // Get the name
@@ -63,6 +66,8 @@ void configureCMakeTemplateFiles(const Options& opt) {
                 outf << opt.dbInitString();
             else if (propertyName == "executable_name")
                 outf << opt.exeName();
+            else if (propertyName == "db_wt_lib_name")
+                outf << opt.dbWtLibName();
             else {
                 std::stringstream msg;
                 msg << "Found an unrecognized property name: '" << propertyName

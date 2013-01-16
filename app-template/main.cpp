@@ -1,5 +1,5 @@
-#include "app/Server.hpp"
-#include "app/App.hpp"
+#include <wittyPlus/Server.hpp>
+#include <wittyPlus/App.hpp>
 #include <signal.h>
 #include <Wt/WConfig.h>
 

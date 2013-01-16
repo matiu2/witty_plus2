@@ -7,27 +7,10 @@ add_definitions(-std=c++11 -Wall -Wextra)
 include(cmake/settings.cmake)
 include(cmake/dependencies.cmake)
 
-add_subdirectory(app)
-add_subdirectory(widgets)
-add_subdirectory(models)
+include_directories(${CMAKE_SOURCE_DIR}) # so #include <wittyPlus/xxx> works
+
+add_subdirectory(wittyPlus)
 add_subdirectory(app-builder)
-
-add_library(wittyPlus SHARED )
-target_link_libraries(wittyPlus
-    ${wtdbosqlite}
-    ${WT_LIBRARIES}
-    ${DB_LIBRARIES}
-    ${Boost_LIBRARIES}
-    app models
-)
-
-install(
-    TARGETS
-        wittyPlus
-    LIBRARY
-    DESTINATION
-        "${CMAKE_INSTALL_PREFIX}/lib"
-)
 
 install(DIRECTORY app-template
         DESTINATION "${SHARED_INSTALL_DIRECTORY}"
