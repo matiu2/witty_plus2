@@ -33,11 +33,8 @@ endif()
 
 string(COMPARE NOTEQUAL "${DB_LIB_NAME}" "" HAVE_DB_LIB)
 
-set(DB_INIT_STRING "myapp.db" CACHE STRING "The string to pass to your DB library. See the library documentation")
-
 # Default app settings
 
-set(LOG_FILE_NAME "myapp.log" CACHE STRING "The filename of the log file that the app should log to, in the default config file")
 set(SHARED_INSTALL_DIRECTORY "${CMAKE_INSTALL_PREFIX}/share/wittyPlus" CACHE STRING "Where to install any shared resources for the library")
 set(APP_TEMPLATE_INSTALL_DIR "${SHARED_INSTALL_DIRECTORY}/app-template")
 
