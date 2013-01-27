@@ -8,7 +8,6 @@ add_library(wittyPlus SHARED empty.cpp)
 target_link_libraries(wittyPlus 
     ${wtdbosqlite}
     ${WT_LIBRARIES}
-    ${DB_LIBRARIES}
     ${Boost_LIBRARIES}
     "-Wl,--whole-archive"
     app models

@@ -1,0 +1,2 @@
++ Make it so that if the debug witty libs are not available, it'll fall back to the non-debug ones
++ 

@@ -9,7 +9,8 @@ namespace witty_plus {
 namespace app {
 
 App::App(const Wt::WEnvironment& env)
-    : Wt::WApplication(env), _userSession(appRoot() + "auth.db")
+    : Wt::WApplication(env),
+      _userSession(getConn(getDBConnectionString()))
 {
     new Wt::WText("<h1>Auth Widget</h1>", root());
     Server* s(Server::instance());

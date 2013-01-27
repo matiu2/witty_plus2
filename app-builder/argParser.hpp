@@ -3,12 +3,16 @@
 
 #include <string>
 #include <vector>
+#include <sstream>
 #include <stdexcept>
 
-
 struct BadOptionsError : std::runtime_error {
-    static const char* helpMessage;
-    BadOptionsError() : std::runtime_error(BadOptionsError::helpMessage) {}
+    static const char* helpMessage() { return 
+        R"(Please enter the options in order. Only baseName is required, all others can be guessed by the program: 
+           baseName exeName dbName dbHost dbPort dbUser dbPass
+           
+           If it's an sqlite db, dbHost and those after it are not needed.)"; }
+    BadOptionsError() : std::runtime_error(BadOptionsError::helpMessage()) {}
 };
 
 struct Options {
@@ -51,7 +55,20 @@ public:
         throw BadOptionsError();
     }
 
-    std::string dbInitString() const;
+    std::string dbInitString() const {
+        if (_dbHost.empty()) {
+            return dbName() + ".db";
+        } else {
+            std::stringstream ss;
+            ss << "host=" << dbHost() << ' '
+               << "port=" << dbPort() << ' '
+               << "dbname=" << dbName() << ' '
+               << "user=" << dbUser() << ' '
+               << "password=" << dbPass();
+            return ss.str();
+        }
+    }
+
     const std::string& templateDir() const { return Options::template_dir; }
     const std::string& baseName() const { return _baseName; }
     const std::string& exeName() const { return !_exeName.empty() ? _exeName : _baseName; }

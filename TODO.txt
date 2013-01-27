@@ -3,3 +3,5 @@
  * basic styles setup
  * allow for drop in replacement style templates
  * tests ?
+ * fall back to wt.so when wtd.so not available
+ + filesystem3 for older boosts. -- see how wt got around it

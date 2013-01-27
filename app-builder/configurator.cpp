@@ -66,8 +66,6 @@ void configureCMakeTemplateFiles(
                 outf << opt.dbInitString();
             else if (propertyName == "executable_name")
                 outf << opt.exeName();
-            else if (propertyName == "db_wt_lib_name")
-                outf << opt.dbWtLibName();
             else {
                 std::stringstream msg;
                 msg << "Found an unrecognized property name: '" << propertyName

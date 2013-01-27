@@ -22,7 +22,7 @@ private:
     models::UserDatabase *_users;
     Wt::Auth::Login _login;
 public:
-    UserSession(const std::string& dbConnectionString);
+    UserSession(std::unique_ptr<Wt::Dbo::SqlConnection> dbConnection);
 
     Wt::Auth::AbstractUserDatabase& users() { return *_users; }
     Wt::Auth::Login& login() { return _login; }

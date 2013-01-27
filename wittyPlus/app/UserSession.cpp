@@ -6,8 +6,8 @@
 namespace witty_plus {
 namespace app {
 
-UserSession::UserSession(const std::string& dbConnectionString)
-    : _connection(makeConnection(dbConnectionString))
+UserSession::UserSession(std::unique_ptr<Wt::Dbo::SqlConnection> dbConnection)
+    : _connection(dbConnection)
 {
     setConnection(*_connection.get());
 
